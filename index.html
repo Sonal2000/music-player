@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+     integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <title>Music Player</title>
+</head>
+<body>
+    <div class="main_div">
+        <div class="music_container">
+            <h2 id="title">HAWA BANKE</h2>
+            <h3 id="artist">Darshan Raval</h3>
+            <div class="img_container">
+                <img src="images/Hawa-Banke-Darshan-Raval.jpg" alt="">
+            </div>
+            <audio src="music/.mp3"></audio>
+            <!--------CONTROLS--------->
+            <div class="music_controls">
+                <i class="fas fa-backward" id="prev" title="Previous"></i>
+                <i class="fas fa-play main_button" id="play" title="Play"></i>
+                <i class="fas fa-forward" id="next" title="Next"></i>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const music = document.querySelector("audio");
+        const img = document.querySelector("img");
+        const play = document.getElementById("play");
+
+        const artist = document.getElementById("artist");
+        const title = document.getElementById("title");
+        const prev = document.getElementById("prev");
+        const next = document.getElementById("next");
+
+
+        const songs = [
+            {     //array of obj
+            name:"Hawa-Banke-Darshan-Raval",
+            title:"HAWA BANKE",
+            artist:"Darshan Raval",
+
+        },
+        {
+            name:"Ed Sheeran - Shape Of You [Official]",
+            title:"SHAPE OF YOU",
+            artist:"Ed Sheeran",
+        },
+        {
+            name:"Khairiyat (Sad) - Chhichhore 128 Kbps",
+            title:"KHAIRIYAT",
+            artist:"Arijit Singh",
+        },
+        {
+            name:"Nikle Currant - Jassi Gill",
+            title:"NIKLE CURRANT",
+            artist:"Jassi Gill,Neha Kakkar",
+        },
+        {
+            name:"Ishare Tere - Guru Randhawa",
+            title:"ISHARE TERE",
+            artist:"Guru Randhawa,Dhvani Bhanushali",
+        },
+        {
+            name:"Tera Zikr - Darshan Raval 320Kbps",
+            title:"TERA ZIKR",
+            artist:"Darshan Raval",
+        },
+        {
+            name:"02 Dekhte Dekhte - Batti Gul Meter Chalu",
+            title:"DEKHTE DEKHTE",
+            artist:"Atif Aslam,Rochak Kohli",
+        },
+        {
+            name:"Waka Waka (This Time for Africa) - Shakira 🎵",
+            title:"WAKA WAKA",
+            artist:"Shakira",
+        },
+        {
+            name:"Sakhiyaan - Maninder Buttar",
+            title:"SAKHIYAAN",
+            artist:"Maninder Buttar,MixSingh, Babbu",
+        },
+        {
+            name:"Qismat - Ammy Virk",
+            title:"QISMAT",
+            artist:"Ammy Virk,B Praak",
+        },
+        ];
+
+        let isPlaying = false;
+
+        //for play
+        const playMusic = () => {
+            isPlaying = true;
+            music.play();
+            play.classList.replace("fa-play", "fa-pause");
+            img.classList.add("anime");
+
+        };
+        //for pause
+
+        const pauseMusic = () => {
+            isPlaying = false;
+            music.pause();
+            play.classList.replace("fa-pause", "fa-play");
+            img.classList.add("anime");
+
+        };
+
+        play.addEventListener("click", () => {
+            if(isPlaying)
+            {
+                pauseMusic();
+            }
+            else{
+                playMusic();
+            }
+        });
+
+        //for changing songs
+
+        const loadSong = (songs) => {
+            title.textContent = songs.title;
+            artist.textContent = songs.artist;
+            music.src = "music/" + songs.name + ".mp3";
+            img.src = "images/" + songs.name + ".jpg";
+
+        };
+        songIndex = 0;
+        //
+
+        const nextSong = () =>{
+            songIndex = (songIndex + 1) % songs.length;   
+            loadSong(songs[songIndex]);
+            playMusic();
+        }
+
+        const prevSong = () =>{
+            songIndex = (songIndex - 1 + songs.length) % songs.length;   
+            loadSong(songs[songIndex]);
+            playMusic();
+        }
+
+        next.addEventListener('click',nextSong);
+        prev.addEventListener('click',prevSong);
+
+    </script>
+</body>
+</html>
